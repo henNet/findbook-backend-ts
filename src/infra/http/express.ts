@@ -1,5 +1,6 @@
 import express, { Application } from "express";
 import cors from "cors";
+import { errorMiddleware } from "../midllewares/error.middleware";
 
 class Express {
   app: Application;
@@ -7,9 +8,9 @@ class Express {
   constructor() {
     this.app = express();
     this.initMiddlewares();
-    this.erroMiddleware();
+    this.errorMiddleware();
   }
-  
+
   private initMiddlewares() {
     /* Para que respostas sejam devolvidas em JSON */
     this.app.use(express.json());
@@ -22,14 +23,14 @@ class Express {
     this.app.use(cors());
   }
 
-  private erroMiddleware() {
-    
+  private errorMiddleware() {
+    this.app.use(errorMiddleware);
   }
-    
+
   listen() {
-      this.app.listen(3333, () => {
-          console.log("Server online on Port 3333");
-    })
+    this.app.listen(3333, () => {
+      console.log("Server online on Port 3333");
+    });
   }
 }
 
