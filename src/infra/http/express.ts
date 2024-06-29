@@ -1,6 +1,7 @@
 import express, { Application } from "express";
 import cors from "cors";
 import { errorMiddleware } from "../midllewares/error.middleware";
+import { BookRoutes } from "../routes/books.routes";
 
 class Express {
   app: Application;
@@ -9,6 +10,7 @@ class Express {
     this.app = express();
     this.initMiddlewares();
     this.errorMiddleware();
+    BookRoutes(this.app);
   }
 
   private initMiddlewares() {
