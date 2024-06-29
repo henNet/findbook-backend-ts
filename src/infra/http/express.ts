@@ -1,12 +1,13 @@
 import express, { Application } from "express";
 import cors from "cors";
 import { BookRoutes } from "../routes/books.routes";
-import { connect } from "../database/mongoose";
+import { connectDB } from "../database/mongoose";
 import dotenv from "dotenv";
 
 /* Para ler as variaveis de ambiente do arquivo .env */
 dotenv.config();
 
+/* Classe para instaciar o servidor e escutar requisições  */
 class Express {
   app: Application;
 
@@ -30,7 +31,7 @@ class Express {
 
   listen() {
     this.app.listen(3333, () => {
-      connect();
+      connectDB();
       console.log("Server online on Port 3333");
     });
   }

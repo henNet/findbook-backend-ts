@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { HttpExceptions } from "../../types/http.exceptions";
 
-export async function connect() {
+export async function connectDB() {
   try {
     if (!process.env.DATABASE_URL)
       throw new HttpExceptions(500, "Missing Database URL");
