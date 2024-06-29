@@ -1,7 +1,11 @@
 import express, { Application } from "express";
 import cors from "cors";
-import { errorMiddleware } from "../midllewares/error.middleware";
 import { BookRoutes } from "../routes/books.routes";
+import { connect } from "../database/mongoose";
+import dotenv from "dotenv";
+
+/* Para ler as variaveis de ambiente do arquivo .env */
+dotenv.config();
 
 class Express {
   app: Application;
@@ -9,7 +13,6 @@ class Express {
   constructor() {
     this.app = express();
     this.initMiddlewares();
-    this.errorMiddleware();
     BookRoutes(this.app);
   }
 
@@ -25,12 +28,9 @@ class Express {
     this.app.use(cors());
   }
 
-  private errorMiddleware() {
-    this.app.use(errorMiddleware);
-  }
-
   listen() {
     this.app.listen(3333, () => {
+      connect();
       console.log("Server online on Port 3333");
     });
   }
