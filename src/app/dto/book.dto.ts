@@ -26,6 +26,7 @@ const bookSchema = z.object({
   status: z.string(),
   authors: z.array(z.string()),
   categories: z.array(z.string()),
+  embedding: z.array(z.number()).optional(),
 });
 
 type Book = z.infer<typeof bookSchema>;

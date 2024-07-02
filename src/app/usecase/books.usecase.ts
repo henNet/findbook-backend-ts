@@ -1,3 +1,4 @@
+import { generateEmbeddings } from "../../infra/services/openai";
 import { BookDTO } from "../dto/book.dto";
 import { BooksRepository } from "../repositoryabstract/books.respositoryabstract";
 
@@ -9,7 +10,19 @@ class BooksUseCase {
   }
 
   async createBook(dto: BookDTO) {
-    this.booksRepository.create(dto);
+    const dataEmbedding = {
+      title: dto.title,
+      categories: dto.categories,
+      authors: dto.authors,
+      longDescription: dto.longDescription,
+    };
+    const generateEmbedding = await generateEmbeddings(
+      JSON.stringify(dataEmbedding)
+    );
+    return this.booksRepository.create({
+      ...dto,
+      embedding: generateEmbedding,
+    });
   }
 
   async findBook(dto: BookDTO) {
@@ -17,7 +30,19 @@ class BooksUseCase {
   }
 
   async updateBook(dto: BookDTO, id: string) {
-    this.booksRepository.update(dto, id);
+    const dataEmbedding = {
+      title: dto.title,
+      categories: dto.categories,
+      authors: dto.authors,
+      longDescription: dto.longDescription,
+    };
+    const generateEmbedding = await generateEmbeddings(
+      JSON.stringify(dataEmbedding)
+    );
+    return this.booksRepository.update(
+      { ...dto, embedding: generateEmbedding },
+      id
+    );
   }
 }
 
