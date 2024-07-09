@@ -24,9 +24,18 @@ class BookRepositoryMongoose implements BooksRepository {
     return books.save();
   }
 
-  async find(dto: BookDTO): Promise<BookEntity | null> {
-    const response = await Books.findOne({ title: dto.title });
+  async find(dto: BookDTO, id: string): Promise<BookEntity | null> {
+    console.log(dto.title);
+    // const response = await Books.findOne({ title: dto.title });
+    const response = await Books.findOne({ _id: id });
     return response ? response.toObject() : null;
+  }
+
+  async findAll(): Promise<any> {
+    const response = await Books.find({});
+    console.log(response);
+
+    return response ? response : null;
   }
 
   async update(dto: BookDTO, id: string): Promise<BookEntity | null> {

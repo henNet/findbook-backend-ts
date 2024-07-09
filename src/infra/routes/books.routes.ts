@@ -10,6 +10,7 @@ export const BookRoutes = (router: Router) => {
 
   /* Endpoints */
   router.post("/books", RouterAdaptar(booksController, "create"));
-  router.get("/books", RouterAdaptar(booksController, "find"));
+  router.get("/books/:id", RouterAdaptar(booksController, "find"));
+  router.get("/books", RouterAdaptar(booksController, "findAll"));
   router.put("/books/:id", RouterAdaptar(booksController, "update"));
 };

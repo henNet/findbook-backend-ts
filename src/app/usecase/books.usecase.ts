@@ -10,39 +10,45 @@ class BooksUseCase {
   }
 
   async createBook(dto: BookDTO) {
-    const dataEmbedding = {
-      title: dto.title,
-      categories: dto.categories,
-      authors: dto.authors,
-      longDescription: dto.longDescription,
-    };
-    const generateEmbedding = await generateEmbeddings(
-      JSON.stringify(dataEmbedding)
-    );
+    // const dataEmbedding = {
+    //   title: dto.title,
+    //   categories: dto.categories,
+    //   authors: dto.authors,
+    //   longDescription: dto.longDescription,
+    // };
+    // const generateEmbedding = await generateEmbeddings(
+    //   JSON.stringify(dataEmbedding)
+    // );
     return this.booksRepository.create({
       ...dto,
-      embedding: generateEmbedding,
+      // embedding: generateEmbedding,
     });
   }
 
-  async findBook(dto: BookDTO) {
-    this.booksRepository.find(dto);
+  async findBook(dto: BookDTO, id: string) {
+    return this.booksRepository.find(dto, id);
+  }
+
+  async findAllBooks() {
+    return this.booksRepository.findAll();
   }
 
   async updateBook(dto: BookDTO, id: string) {
-    const dataEmbedding = {
-      title: dto.title,
-      categories: dto.categories,
-      authors: dto.authors,
-      longDescription: dto.longDescription,
-    };
-    const generateEmbedding = await generateEmbeddings(
-      JSON.stringify(dataEmbedding)
-    );
-    return this.booksRepository.update(
-      { ...dto, embedding: generateEmbedding },
-      id
-    );
+    // const dataEmbedding = {
+    //   title: dto.title,
+    //   categories: dto.categories,
+    //   authors: dto.authors,
+    //   longDescription: dto.longDescription,
+    // };
+    // const generateEmbedding = await generateEmbeddings(
+    //   JSON.stringify(dataEmbedding)
+    // );
+    // return this.booksRepository.update(
+    //   { ...dto, embedding: generateEmbedding },
+    //   id
+    // );
+
+    return this.booksRepository.update({ ...dto }, id);
   }
 }
 

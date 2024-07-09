@@ -24,15 +24,36 @@ class BooksController {
   }
 
   async find(httpResquest: HttpResquest): Promise<HttpResponse> {
-    const dto: BookDTO = httpResquest.query;
+    const dto: BookDTO = httpResquest.body;
+    const id: string = httpResquest.params.id;
     try {
-      const response = await this.bookUseCase.findBook(dto);
+      const response = await this.bookUseCase.findBook(dto, id);
 
       return {
         status: 200,
         message: "Book Found",
         data: response,
       };
+    } catch (error: any) {
+      return {
+        status: error.status,
+        message: error.message,
+      };
+    }
+  }
+
+  async findAll(httpResquest: HttpResquest): Promise<HttpResponse> {
+    const dto: BookDTO = httpResquest.body;
+    const id: string = httpResquest.params.id;
+    try {
+      const response = await this.bookUseCase.findAllBooks();
+
+      return {
+        status: 200,
+        message: "Book Found",
+        data: response,
+      };
+      // return response;
     } catch (error: any) {
       return {
         status: error.status,
